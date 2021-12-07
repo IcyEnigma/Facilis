@@ -1,12 +1,57 @@
 .calendar {
   background-color: salmon;
-  display: flex;
-  padding: 500px, 170px;
-
   button {
     background-color: gold;
     height: 100px;
     width: 200px;
     border-radius: 10%;
+  }
+  .calendar-events {
+    display: flex;
+    justify-content: center;
+
+    .eventContainer {
+      background-color: white;
+      margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      width: 1000px;
+      height: 500px;
+      border-radius: 3%;
+      box-shadow: 3px 3px 3px 3px rgba(70, 50, 75, 0.472);
+
+      .tableHeader {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 50px;
+        background-color: #15023a;
+        overflow: hidden;
+
+        align-items: center;
+
+        h3 {
+          margin-left: 200px;
+          overflow: hidden;
+          color: white;
+        }
+      }
+      .eventEntry {
+        width: 100%;
+        height: 40px;
+        background-color: skyblue;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: black;
+
+        .eventDate {
+          margin-left: 170px;
+        }
+        .eventTitle {
+          margin-left: 130px;
+        }
+      }
+    }
   }
 }

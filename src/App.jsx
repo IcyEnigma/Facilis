@@ -2,7 +2,7 @@ import Topbar from "./components/topbar/Topbar";
 import Calendar from "./components/calendar/Calendar";
 import Mail from "./components/mail/Mail";
 import Weather from "./components/weather/Weather";
-import News from "./components/news/News";
+import NewsApp from "./components/news/News";
 import Todo from "./components/todo/Todo";
 import Menu from "./components/menu/Menu";
 import "./app.scss";
@@ -18,7 +18,7 @@ function App() {
         <Mail />
         <Weather />
         <Todo />
-        <News />
+        <NewsApp />
       </div>
     </div>
   );

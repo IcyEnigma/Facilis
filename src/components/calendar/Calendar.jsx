@@ -1,4 +1,5 @@
 import "./calendar.scss";
+import React, { useState } from "react";
 
 var gapi = window.gapi;
 var CLIENT_ID =
@@ -9,80 +10,63 @@ var DISCOVERY_DOCS = [
 ];
 var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
-const handleClick = () => {
-  gapi.load("client:auth2", () => {
-    console.log("loaded client");
-
-    gapi.client.init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES,
-    });
-
-    gapi.client.load("calendar", "v3", () => console.log("Connection made"));
-
-    gapi.auth2
-      .getAuthInstance()
-      .signIn()
-      .then(() => {
-        var event = {
-          summary: "TEST EVENT",
-          location: "800 Howard St., San Francisco, CA 94103",
-          description: "Really great refreshments",
-          start: {
-            dateTime: "2020-06-28T09:00:00-07:00",
-            timeZone: "America/Los_Angeles",
-          },
-          end: {
-            dateTime: "2020-06-28T17:00:00-07:00",
-            timeZone: "America/Los_Angeles",
-          },
-          recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
-          attendees: [
-            { email: "lpage@example.com" },
-            { email: "sbrin@example.com" },
-          ],
-          reminders: {
-            useDefault: false,
-            overrides: [
-              { method: "email", minutes: 24 * 60 },
-              { method: "popup", minutes: 10 },
-            ],
-          },
-        };
-
-        var request = gapi.client.calendar.events.insert({
-          calendarId: "primary",
-          resource: event,
-        });
-
-        request.execute((event) => {
-          console.log(event);
-          window.open(event.htmlLink);
-        });
-
-        gapi.client.calendar.events
-          .list({
-            calendarId: "primary",
-            timeMin: new Date().toISOString(),
-            showDeleted: false,
-            singleEvents: true,
-            maxResults: 10,
-            orderBy: "startTime",
-          })
-          .then((response) => {
-            const events = response.result.items;
-            console.log("Revieved events:  ", events);
-          });
-      });
-  });
-};
-
 export default function Calendar() {
+  const [state, setState] = useState([]);
+
+  const handleClick = () => {
+    gapi.load("client:auth2", () => {
+      console.log("loaded client");
+
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES,
+      });
+
+      gapi.client.load("calendar", "v3", () => console.log("Api initialised"));
+
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(() => {
+          gapi.client.calendar.events
+            .list({
+              calendarId: "primary",
+              timeMin: new Date().toISOString(),
+              showDeleted: false,
+              singleEvents: true,
+              maxResults: 10,
+              orderBy: "startTime",
+            })
+            .then((response) => {
+              const events = response.result.items;
+              console.log("Revieved events:  ", events);
+              setState(events);
+            });
+        });
+    });
+  };
+
   return (
     <div className="calendar" id="calendar">
       <button onClick={handleClick}>Get event</button>
+      <div className="calendar-events">
+        <div className="eventContainer">
+          <div className="tableHeader">
+            <h3>Date</h3>
+            <h3>Title</h3>
+            <h3>Description</h3>
+          </div>
+          {state.map((event) => (
+            <div className="eventEntry">
+              <h3 className="eventDate">{event.start.date}</h3>
+              <h3 className="eventTitle">{event.summary}</h3>
+              <p>{event.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

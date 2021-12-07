@@ -1,5 +1,13 @@
+import React from "react";
+import { NewsContextProvider } from "./NewsContext";
+import News from "./components/News";
 import "./news.scss";
 
-export default function News() {
-  return <div className="news" id="news"></div>;
+function NewsApp() {
+  return (
+    <NewsContextProvider>
+      <News />
+    </NewsContextProvider>
+  );
 }
+export default NewsApp;
