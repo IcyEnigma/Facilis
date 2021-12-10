@@ -1,10 +1,21 @@
 .calendar {
-  background-color: salmon;
+  background-color: rgb(0, 113, 128);
   button {
-    background-color: gold;
-    height: 100px;
+    background-color: skyblue;
+    cursor: pointer;
+    height: 50px;
     width: 200px;
-    border-radius: 10%;
+    border-radius: 10px;
+    border: 2px solid #15023a;
+    font-weight: bold;
+    font-size: large;
+    margin-top: 10px;
+    position: absolute;
+    right: 50px;
+  }
+  button:hover {
+    background-color: #15023a;
+    color: white;
   }
   .calendar-events {
     display: flex;
@@ -50,6 +61,12 @@
         }
         .eventTitle {
           margin-left: 130px;
+        }
+        p {
+          align-items: center;
+          padding-left: 50px;
+          font-size: small;
+          font-weight: bolder;
         }
       }
     }

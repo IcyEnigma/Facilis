@@ -50,7 +50,10 @@ export default function Calendar() {
 
   return (
     <div className="calendar" id="calendar">
-      <button onClick={handleClick}>Get event</button>
+      {/* <div>
+        <img src="public\assets\calendar.png" alt="calendar" />
+      </div> */}
+      <button onClick={handleClick}>Login</button>
       <div className="calendar-events">
         <div className="eventContainer">
           <div className="tableHeader">
