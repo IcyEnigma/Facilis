@@ -1,6 +1,6 @@
 import "./calendar.scss";
 import React, { useState } from "react";
-
+import cal from "./calendar.png";
 var gapi = window.gapi;
 var CLIENT_ID =
   "127126638961-k7fvpi6685ugcpmvbj57oe2r9p4erc21.apps.googleusercontent.com";
@@ -50,10 +50,12 @@ export default function Calendar() {
 
   return (
     <div className="calendar" id="calendar">
-      {/* <div>
-        <img src="public\assets\calendar.png" alt="calendar" />
-      </div> */}
-      <button onClick={handleClick}>Login</button>
+      <div className="title">
+        <img src={cal} alt="calendar" />
+        <h2>Calendar</h2>
+        <button onClick={handleClick}>Login</button>
+      </div>
+
       <div className="calendar-events">
         <div className="eventContainer">
           <div className="tableHeader">
